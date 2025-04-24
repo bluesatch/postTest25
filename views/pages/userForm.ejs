@@ -1,0 +1,37 @@
+<%- include('../partials/header') %>
+
+<main class="main" id="userFormMain">
+    <div class="container">
+        <form action="http://localhost:3000/api/user/post" method="POST" class="form create-account-form" id="createAccountForm">
+            <div class="row">
+                <div class="col">
+                    <label for="first_name" class="form-label">First</label>
+                    <input type="text" id="first_name" name="first_name" class="form-control" required>
+                </div>
+                <div class="col">
+                    <label for="last_name" class="form-label">Last</label>
+                    <input type="text" id="last_name" name="last_name" class="form-control" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="password" class="form-label">password</label>
+                    <input type="password" id="password" name="password" class="form-control" required>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="imgUrl" class="form-label">Enter a Profile Pic</label>
+                    <input type="img" id="imgUrl" name="imgUrl" class="form-control">
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <button class="btn btn-primary" role="button" type="submit">Submit</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</main>
+
+<%- include('../partials/footer') %>

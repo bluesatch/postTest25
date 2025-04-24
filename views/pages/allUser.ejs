@@ -1,0 +1,22 @@
+<%- include('../partials/header') %>
+
+<main class="main" id="allUserMain">
+    <div class="container">
+        <div class="row">
+            <% data.forEach(user => { %>
+                <div class="col-md-2">
+                    <figure class="figure">
+                        <img src="/images/<%= user.imgUrl %>" alt="<%= user.first_name %> <%= user.last_name %>" class="figure-img img-fluid w-100">
+                        <figcaption class="figure-caption">
+                            <a href="/user/<%= user.user_id %>" class="user-link">
+                                <%= user.first_name %> <%= user.last_name %>
+                            </a>
+                        </figcaption>
+                    </figure>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+</main>
+
+<%- include('../partials/footer') %>
