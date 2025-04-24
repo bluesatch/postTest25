@@ -1,3 +1,4 @@
 node_modules/
 *-lock.json
 db/
+app/config/dbconfig.js
