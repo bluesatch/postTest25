@@ -37,7 +37,31 @@ const dao = {
         )
     },
     create: (req, res, table)=> {
-        console.log(req.body)
+        // console.log(req.body)
+        // if there are no keys in the object...
+        if (Object.keys(req.body).length === 0) {
+            res.json({
+                "error": true,
+                "message": "No fields to create"
+            })
+        } else {
+            const fields = Object.keys(req.body)
+            const values = Object.values(req.body)
+            
+            con.execute(
+                `INSERT INTO ${table} SET ${fields.join(' = ?, ')} = ?;`,
+                values,
+                (error, dbres)=> {
+                    if(!error) {
+                        res.json({
+                            Last_id: dbres.insertId
+                        })
+                    } else {
+                        console.log('DAO Error (error posting): ', error)
+                    }
+                }
+            )
+        }
     }
 }
 

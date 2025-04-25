@@ -46,9 +46,6 @@ router.get('/userForm', (req, res)=> {
 
 })
 
-router.get('/user/post', (req, res)=> {
 
-    
-})
 
 module.exports = router
