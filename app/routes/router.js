@@ -36,6 +36,23 @@ router.get('/user', (req, res)=> {
         })
 })
 
+// user single
+router.get('/user/:id', (req, res)=> {
+
+    const id = req.params.id
+
+    const url = `http://localhost:${PORT}/api/user/${id}`
+
+    axios.get(url)
+        .then(resp => {
+            res.render('pages/userSingle', {
+                title: `${resp.data.first_name} ${resp.data.last_name}`,
+                name: `${resp.data.first_name} ${resp.data.last_name}`,
+                data: resp.data
+            })
+        })
+})
+
 // userForm
 router.get('/userForm', (req, res)=> {
 
@@ -46,6 +63,26 @@ router.get('/userForm', (req, res)=> {
 
 })
 
+// editPassword 
+router.get('/editPassword/:userId', (req, res)=> {
+    const userId =  req.params.userId
 
+    res.render('pages/editPassword', {
+        title: 'Edit Password',
+        name: 'Edit Password',
+        userId
+    })
+})
+
+router.post('/api/user/update/:userId', (req, res)=> {
+
+    const userId = req.params.userId
+
+    axios.post(`http://localhost:${PORT}/api/user/update/${userId}`, {
+        password: req.body.password
+    }).then(resp => {
+        res.send(resp.data)
+    })
+})
 
 module.exports = router

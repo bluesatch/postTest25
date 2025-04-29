@@ -1,0 +1,15 @@
+<%- include('../partials/header') %>
+
+<main class="main" id="userSingleMain">
+    <div class="container">
+        <figure class="figure" id="userFigure">
+            <img src="/images/<%= data.imgUrl %>" alt="<%= data.first_name %> <%= data.last_name %>" class="img-fluid image w-100 figure-img" />
+            <figcaption class="figure-caption">
+                <%= data.first_name %> <%= data.last_name %>
+            </figcaption>
+        </figure>
+        <a href="/editPassword/<%= data.user_id %>" class="edit-link">Edit User</a>
+    </div>
+</main>
+
+<%- include('../partials/footer') %>
