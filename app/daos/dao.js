@@ -21,6 +21,7 @@ const dao = {
     },
 
     findById: (res, table, id)=> {
+
         con.execute(
             `SELECT * FROM ${table} WHERE ${table}_id = ${id};`,
             (error, rows)=> {
@@ -35,6 +36,7 @@ const dao = {
                 }
             }
         )
+        
     },
     create: (req, res, table)=> {
         // console.log(req.body)
@@ -64,9 +66,10 @@ const dao = {
         }
     },
 
-    update: (req, res, table, userId)=> {
-
+    update: (req, res, table)=> {
+        
         console.log(req.body)
+        const userId = req.body.user_id
         // if id is not a number => id or userId
         if(isNaN(userId)) {
             res.json({

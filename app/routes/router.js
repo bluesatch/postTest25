@@ -37,20 +37,36 @@ router.get('/user', (req, res)=> {
 })
 
 // user single
-router.get('/user/:id', (req, res)=> {
+router.get('/user/:id', (req, res, next)=> {
 
     const id = req.params.id
 
-    const url = `http://localhost:${PORT}/api/user/${id}`
+    if (isNaN(id)) {
+        res.render('pages/error', {
+            title: 'Error',
+            name: 'Error',
 
-    axios.get(url)
-        .then(resp => {
-            res.render('pages/userSingle', {
-                title: `${resp.data.first_name} ${resp.data.last_name}`,
-                name: `${resp.data.first_name} ${resp.data.last_name}`,
-                data: resp.data
-            })
         })
+
+        try {
+            throw new Error('invalid id')
+        } catch (err) {
+            next(err)
+        }
+
+    } else {
+        const url = `http://localhost:${PORT}/api/user/${id}`
+    
+        axios.get(url)
+            .then(resp => {
+                res.render('pages/userSingle', {
+                    title: `${resp.data.first_name} ${resp.data.last_name}`,
+                    name: `${resp.data.first_name} ${resp.data.last_name}`,
+                    data: resp.data
+                })
+            })
+    }
+
 })
 
 // userForm
@@ -74,14 +90,28 @@ router.get('/editPassword/:userId', (req, res)=> {
     })
 })
 
-router.post('/api/user/update/:userId', (req, res)=> {
+router.post('/update/:userId', (req, res)=> {
 
-    const userId = req.params.userId
 
-    axios.post(`http://localhost:${PORT}/api/user/update/${userId}`, {
+    axios.patch(`http://localhost:${PORT}/api/user/update`, {
+        user_id: req.params.userId,
         password: req.body.password
+        
     }).then(resp => {
-        res.send(resp.data)
+        res.render('pages/editSuccess', {
+            title: 'Success',
+            name: 'Success'
+        })
+    }).catch(error => console.log(error))
+})
+
+
+// use app.all('/{*any}', func) for 404 error handling
+router.all('/{*any}', (req, res, next)=> {
+    // res.status(404).send('<h1>404 Page not found</h1>')
+    res.render('pages/error', {
+        title: '404 Error',
+        name: '404 Error'
     })
 })
 
